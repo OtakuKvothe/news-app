@@ -9,6 +9,7 @@ import { createDrawerNavigator, DrawerItem } from '@react-navigation/drawer';
 
 import Home from '../screens/Home';
 import Health from '../screens/Health';
+import TabNavigator from './TabNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -33,8 +34,7 @@ export default function DrawerNavigator() {
         <ThemeContext.Provider value={isDarkMode === true ? Theme.dark : Theme.light}>
             <NavigationContainer theme={isDarkMode === true ? DarkTheme : DefaultTheme}>
                 <Drawer.Navigator initialRouteName='Home'>
-                    <Drawer.Screen name='Home' component={Home} />
-                    <Drawer.Screen name='Health' component={Health} />
+                    <Drawer.Screen name='Home' component={TabNavigator} />
                 </Drawer.Navigator>
             </NavigationContainer>
         </ThemeContext.Provider>

@@ -1,33 +1,33 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useContext, useState } from 'react';
 import {
-    View,
     Modal,
+    TouchableOpacity,
+    Share,
     Button,
+    View,
     StyleSheet,
     Image,
     Dimensions,
     Text,
-    Share,
-    TouchableNativeFeedback,
-    TouchableOpacity
+    TouchableNativeFeedback
 } from 'react-native';
-import Theme from '../config/ThemeContext';
 import WebView from 'react-native-webview';
-import { Ionicons } from '@expo/vector-icons';
 
-const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
+import ThemeContext from '../config/ThemeContext';
 
-function Card({ item }) {
+const { width, height } = Dimensions.get('window');
+
+function TopNewsCard({ item }) {
     const [modalVisible, setModalVisible] = useState(false);
-
-    const theme = useContext(Theme);
+    const theme = useContext(ThemeContext);
 
     const handleShare = () => {
-        const {url, title} = item; //get url and title form our prop
+        const { url, title } = item; //get url and title form our prop
         var message = `${title} \n\n Read More ${url} \n\n Shared via The NewsXTimes`; // custome message
         return Share.share(
-            {title, message, url: message},
-            {dialogTitle: `Share ${title}`}
+            { title, message, url: message },
+            { dialogTitle: `Share ${title}` }
         );
     }
 
@@ -38,33 +38,36 @@ function Card({ item }) {
                     margin: 20,
                     borderRadius: 15,
                     backgroundColor: theme.cardBackground,
-                    height: 290,
+                    width: 200,
+                    height: 200,
                     overflow: 'hidden',
                     elevation: 3
                 }}>
                     <Image source={{ uri: item.urlToImage }} style={styles.image} />
                     <Text style={{
-                        width: viewportWidth,
-                        marginHorizontal: viewportWidth * 0.03,
-                        marginVertical: viewportWidth * 0.03,
-                        fontSize: 20,
+                        width: width,
+                        marginHorizontal: width * 0.03,
+                        marginVertical: width * 0.03,
+                        fontSize: 15,
                         fontWeight: 'bold',
                         color: theme.textColor,
-                        maxWidth: viewportWidth * 0.85
-                    }} numberOfLines={2}>{item.title}</Text>
-                    <Text style={styles.author}>{item.author ? item.author : 'Not Available'}</Text>
-                    <Text style={styles.desc} numberOfLines={2}>{item.description}</Text>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        maxWidth: width * 0.45
+                    }} numberOfLines={2}>
+                        {item.title ? item.title : 'Not Available'}
+                    </Text>
+                    <Text style={styles.author}> {item.author ? item.author : 'Not Available'}</Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{
                             backgroundColor: theme.headerColor,
                             borderRadius: 15,
                             justifyContent: 'center',
                             alignItems: 'center',
-                            width: 140,
+                            width: 130,
                             padding: 2,
                             elevation: 3,
                             marginLeft: 10,
-                            marginTop: 5}}>    
+                            marginTop: 5
+                        }}>
                             <Text style={{
                                 fontSize: 10,
                                 color: 'white',
@@ -75,7 +78,7 @@ function Card({ item }) {
                             justifyContent: 'center',
                             marginRight: 10,
                         }}
-                        onPress={handleShare}
+                            onPress={handleShare}
                         >
                             <Ionicons name='share-social' color={theme.textColor} size={20} />
                         </TouchableOpacity>
@@ -86,9 +89,7 @@ function Card({ item }) {
                 animationType='slide'
                 transparent={true}
                 visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(false);
-                }}
+                onRequestClose={() => setModalVisible(false)}
                 statusBarTranslucent={false}
             >
                 <View style={{
@@ -107,39 +108,33 @@ function Card({ item }) {
                         justifyContent: 'space-between'
                     }}>
                         <Button
-                            title='Close'
+                            title="Close"
                             onPress={() => setModalVisible(false)}
                         />
                         <Button
-                            title='Share'
-                            onPress={handleShare}
+                             title="Share"
+                             onPress={handleShare}
                         />
                     </View>
                     <WebView source={{ uri: item.url }} />
                 </View>
-            </Modal>
+            </Modal>        
         </View>
     );
 }
 
-export default Card;
+export default TopNewsCard;
 
 const styles = StyleSheet.create({
     image: {
-        width: viewportWidth,
-        height: viewportHeight * 0.15,
+        width: 200,
+        height: 100,
     },
     author: {
-        width: viewportWidth,
+        width: width,
         marginTop: -10,
-        marginHorizontal: viewportWidth * 0.03,
-        color: 'darkgray'
+        marginHorizontal: width * 0.03,
+        color: 'darkgray',
+        maxWidth: width * 0.4
     },
-    desc: {
-        width: viewportWidth,
-        marginTop: 5,
-        marginHorizontal: viewportWidth * 0.03,
-        color: 'gray',
-        maxWidth: viewportWidth * 0.8
-    }
 })

@@ -7,17 +7,18 @@ import apiKey from '../api/apiKey';
 import ThemeContext from '../config/ThemeContext';
 
 import Card from '../components/Card';
+import Trending from './Trending';
 
 export default function Home() {
     const [loading, setLoading] = useState(false);
     const [news, setNews] = useState([]);
 
     useEffect(() => {
-        console.log(apiKey);
         getNewsFromAPI();
     }, []);
 
     function getNewsFromAPI() {
+        setLoading(true)
         newAPI.get(`top-headlines?country=in&apiKey=${apiKey}`)
             .then(async function (response) {
                 setNews(response.data)
@@ -71,7 +72,9 @@ export default function Home() {
 
     return (
         <View>
-            <ScrollView>
+            <ScrollView style={{
+                backgroundColor: theme.backColor
+            }}>
                 <View>
                     <TouchableOpacity style={{
                         backgroundColor: theme.cardBackground,
@@ -92,6 +95,16 @@ export default function Home() {
                             📅 {months()} {date}
                         </Text>
                     </TouchableOpacity>
+                    <Text style={{
+                        fontSize: 30,
+                        fontWeight: 'bold',
+                        marginTop: 10,
+                        marginLeft: 20,
+                        color: theme.textColor
+                    }}>Trending News</Text>
+                    {loading ? <ActivityIndicator size='large' /> : (
+                        <Trending />
+                    )}
                     <View style={{
                         borderBottomColor: 'gray',
                         borderBottomWidth: 0.5,

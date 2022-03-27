@@ -1,10 +1,65 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useContext, useState } from 'react';
+import {
+    Text, 
+    FlatList,
+    ActivityIndicator,
+    ScrollView
+} from 'react-native';
 
-export default function Health() {
+import ThemeContext from '../config/ThemeContext';
+
+import Card from '../components/Card';
+import newAPI from '../api/News';
+import apiKey from '../api/apiKey';
+
+export default function Health({ navigation }) {
+    const [isLoading, setIsLoading] = useState(false);
+    const [news, setNews] = useState([]);
+
+    const theme = useContext(ThemeContext);
+
+    useEffect(() => {
+        getNewsFromAPI();
+    }, []);
+
+    function getNewsFromAPI() {
+        setIsLoading(true);
+        newAPI.get(`top-headlines?country=in&category=health&apiKey=${apiKey}`)
+        .then(async function(response){
+            setNews(response.data);
+        })
+        .catch(function(error){
+            console.log(error);
+        })
+        .finally(function(){
+            setIsLoading(false);
+        })
+    }
+
+    if(!news){
+        return null;
+    }
+
     return (
-        <View>
-            <Text>This is Health News Screen</Text>
-        </View>
+        <ScrollView style={{
+            backgroundColor: theme.backColor
+        }}>
+            <Text style={{
+                        fontSize: 30,
+                        fontWeight: 'bold',
+                        marginTop: 10,
+                        marginLeft: 20,
+                        color: theme.textColor
+                    }}>Health News</Text>
+            {isLoading ? <ActivityIndicator size='large' /> : (
+                <FlatList
+                    data={news.articles}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({item}) => (
+                        <Card item={item} />
+                    )}
+                />
+            )}
+        </ScrollView>
     )
 }
