@@ -17,11 +17,11 @@ function TabNavigator() {
                 name='Home'
                 component={Home}
                 options={{
-                    headerShowm: false,
+                    headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName = focused ? 'ios-home' : 'ios-home-outline';
                         return (
-                            <Ionicons name={iconName} color={color} size={30} />
+                            <Ionicons name={iconName} color='tomato' size={30} />
                         );
                     }
                 }}
@@ -30,11 +30,11 @@ function TabNavigator() {
                 name='Health'
                 component={Health}
                 options={{
-                    headerShowm: false,
+                    headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName = focused ? 'medkit' : 'medkit-outline';
                         return (
-                            <Ionicons name={iconName} color={color} size={30} />
+                            <Ionicons name={iconName} color='tomato' size={30} />
                         );
                     }
                 }}
@@ -43,11 +43,11 @@ function TabNavigator() {
                 name='Sports'
                 component={Sports}
                 options={{
-                    headerShowm: false,
+                    headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName = focused ? 'basketball' : 'basketball-outline';
                         return (
-                            <Ionicons name={iconName} color={color} size={30} />
+                            <Ionicons name={iconName} color='tomato' size={30} />
                         );
                     }
                 }}
@@ -56,11 +56,11 @@ function TabNavigator() {
                 name='Tech'
                 component={Technology}
                 options={{
-                    headerShowm: false,
+                    headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName = focused ? 'game-controller' : 'game-controller-outline';
                         return (
-                            <Ionicons name={iconName} color={color} size={30} />
+                            <Ionicons name={iconName} color='tomato' size={30} />
                         );
                     }
                 }}
@@ -69,11 +69,11 @@ function TabNavigator() {
                 name='Business'
                 component={Business}
                 options={{
-                    headerShowm: false,
-                    tabBarIcon: ({ focused, color, size }) => {
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => {
                         let iconName = focused ? 'bar-chart' : 'bar-chart-outline';
                         return (
-                            <Ionicons name={iconName} color={color} size={30} />
+                            <Ionicons name={iconName} color='tomato' size={30} />
                         );
                     }
                 }}
