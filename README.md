@@ -8,7 +8,7 @@ Developed as a personal project, created using [React Native](https://facebook.g
 <p justifyContent="space-between" >
   <img src="assets/ss/landing.jpg" width="200" /> 
   <img src="assets/ss/tech.jpg" width="200" /> 
-  <img src="assets/ss/sports.jpg" width="200" /> 
+  <img src="assets/ss/web.jpg" width="200" /> 
 </p>
 
 <p justifyContent="space-between" >
